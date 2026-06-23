@@ -1,0 +1,4 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = s3://arn:aws:s3:ap-south-1:050451374753:accesspoint/colorama-s3-ai-data
