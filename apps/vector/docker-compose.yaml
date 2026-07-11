@@ -1,0 +1,35 @@
+name: colorama-vector
+
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      WEAVIATE_HOST: weaviate
+      WEAVIATE_PORT: 8080
+      WEAVIATE_COLLECTION: color_sense
+      EMBEDDING_MODEL: sentence-transformers/all-MiniLM-L6-v2
+      HOST: 0.0.0.0
+      PORT: 8000
+    depends_on:
+      - weaviate
+
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: cr.weaviate.io/semitechnologies/weaviate:1.38.2
+    ports:
+    - 8080:8080
+    - 50051:50051
+    volumes:
+    - ../../data/weaviate:/data
+    environment:
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/data'
+      CLUSTER_HOSTNAME: "node1"
