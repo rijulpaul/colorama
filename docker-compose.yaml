@@ -17,3 +17,4 @@ services:
     environment:
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/data'
+      CLUSTER_HOSTNAME: "node1"

@@ -4,12 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-HOST = os.environ['WEAVIATE_HOST'] or '0.0.0.0'
-PORT = os.environ['WEAVIATE_PORT'] or '8080'
+HOST = os.getenv('WEAVIATE_HOST','0.0.0.0')
+PORT = os.getenv('WEAVIATE_PORT','8080')
 
 class Weaviate():
     def __init__(self,*args,**kwargs):
-        # print(f'Weaviate client connecting at http://{HOST}:{PORT}')
         self.__client = weaviate.connect_to_local(host=HOST,port=PORT)
         self.__collection = self.__client.collections.use('color_sense')
 
@@ -17,7 +16,6 @@ class Weaviate():
         signal.signal(signal.SIGTERM, self._shutdown)
 
     def query(self, query, vector):
-        print(self.__client.collections.list_all())
         res = self.__collection.query.hybrid(query=query,vector=vector,limit=5)
         return res 
     
