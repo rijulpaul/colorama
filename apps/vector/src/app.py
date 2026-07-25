@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parents[2] / ".env")
+
 from src.services.generate_embeddings import generate_embeddings
 from src.services.weaviate_client import Weaviate
 

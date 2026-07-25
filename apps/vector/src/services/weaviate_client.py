@@ -1,16 +1,14 @@
 import weaviate
 import signal, sys, os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-HOST = os.getenv('WEAVIATE_HOST','0.0.0.0')
-PORT = os.getenv('WEAVIATE_PORT','8080')
+HOST = os.getenv('WEAVIATE_HOST')
+PORT = os.getenv('WEAVIATE_PORT')
+COLLECTION = os.getenv('WEAVIATE_COLLECTION')
 
 class Weaviate():
     def __init__(self,*args,**kwargs):
         self.__client = weaviate.connect_to_local(host=HOST,port=PORT)
-        self.__collection = self.__client.collections.use('color_sense')
+        self.__collection = self.__client.collections.use(COLLECTION)
 
         signal.signal(signal.SIGINT, self._shutdown)
         signal.signal(signal.SIGTERM, self._shutdown)
