@@ -1,0 +1,6 @@
+- [x] LangChain setup
+- [ ] Tool integration
+- [ ] Guardrail
+- [ ] Memory (short and long)
+- [ ] User and chat context
+- [ ] Agent eval
