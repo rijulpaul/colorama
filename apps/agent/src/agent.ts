@@ -2,7 +2,7 @@ import { createAgent, HumanMessage } from "langchain";
 
 import { tools } from "./tools";
 import { SYSTEM_PROMPT } from "./prompts/system.prompt";
-import { env } from "@repo/config";
+import { env } from "@repo/env-config";
 
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
@@ -15,7 +15,8 @@ import { ChatXAI } from "@langchain/xai";
 const LLM_PROVIDER = env.LLM_PROVIDER;
 const LLM_MODEL = env.LLM_MODEL as string;
 const LLM_TEMP = 0.7;
-var llm: any;
+
+let llm: ChatOpenRouter|ChatOpenAI|ChatAnthropic|ChatGoogle|ChatGroq|ChatOllama|ChatXAI;
 
 switch (LLM_PROVIDER) {
   case "openrouter":

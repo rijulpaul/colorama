@@ -1,7 +1,7 @@
 import { tool } from "langchain";
 import { tools } from ".";
 
-import { env } from "@repo/config";
+// import { env } from "@repo/config";
 
 const retrieve_color_tool = tool(
   // (query) => fetch(`http://${env.WEAVIATE_HOST}:${env.WEAVIATE_PORT}`),

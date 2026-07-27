@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts"
+    "start": "bun run src/index.ts",
+    "lint": "eslint ."
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@repo/eslint-config": "workspace:*"
   },
   "dependencies": {
     "@langchain/anthropic": "^1.5.2",
@@ -18,7 +20,7 @@
     "@langchain/openai": "^1.5.5",
     "@langchain/openrouter": "^0.4.5",
     "@langchain/xai": "^1.4.5",
-    "@repo/config": "workspace:*",
+    "@repo/env-config": "workspace:*",
     "langchain": "^1.5.4",
     "zod": "^4.4.3"
   }

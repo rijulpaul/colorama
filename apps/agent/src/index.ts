@@ -1,4 +1,4 @@
-import { env } from "@repo/config";
+import { env } from "@repo/env-config";
 import { run_agent } from "./agent";
 
 const server = Bun.serve({
