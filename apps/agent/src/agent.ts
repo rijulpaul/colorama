@@ -16,7 +16,14 @@ const LLM_PROVIDER = env.LLM_PROVIDER;
 const LLM_MODEL = env.LLM_MODEL as string;
 const LLM_TEMP = 0.7;
 
-let llm: ChatOpenRouter|ChatOpenAI|ChatAnthropic|ChatGoogle|ChatGroq|ChatOllama|ChatXAI;
+let llm:
+  | ChatOpenRouter
+  | ChatOpenAI
+  | ChatAnthropic
+  | ChatGoogle
+  | ChatGroq
+  | ChatOllama
+  | ChatXAI;
 
 switch (LLM_PROVIDER) {
   case "openrouter":
