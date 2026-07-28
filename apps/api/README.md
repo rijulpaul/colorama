@@ -76,13 +76,13 @@ The server starts at `http://localhost:3001`.
 
 ## Endpoints
 
-| Method | Path           | Description                    |
-| ------ | -------------- | ------------------------------ |
-| GET    | `/`            | API metadata                   |
-| GET    | `/health`      | Liveness probe                 |
-| GET    | `/health/ready`| Readiness probe (Mongo + Redis)|
-| POST   | `/ai/chat`     | Chat with the design assistant |
-| GET    | `/docs`        | Swagger UI                     |
+| Method | Path            | Description                     |
+| ------ | --------------- | ------------------------------- |
+| GET    | `/`             | API metadata                    |
+| GET    | `/health`       | Liveness probe                  |
+| GET    | `/health/ready` | Readiness probe (Mongo + Redis) |
+| POST   | `/ai/chat`      | Chat with the design assistant  |
+| GET    | `/docs`         | Swagger UI                      |
 
 ### Example: chat request
 
@@ -94,13 +94,13 @@ curl -X POST http://localhost:3001/ai/chat \
 
 ## Scripts
 
-| Script          | Description              |
-| --------------- | ------------------------ |
-| `dev`           | Start with hot reload    |
-| `start`         | Start production server  |
-| `build`         | Bundle to `dist/`        |
-| `check-types`   | Run TypeScript checks    |
-| `lint`          | Run ESLint               |
+| Script        | Description             |
+| ------------- | ----------------------- |
+| `dev`         | Start with hot reload   |
+| `start`       | Start production server |
+| `build`       | Bundle to `dist/`       |
+| `check-types` | Run TypeScript checks   |
+| `lint`        | Run ESLint              |
 
 ## Adding a new feature module
 

@@ -1,7 +1,10 @@
 import { createApp } from "./app";
 import { env } from "./config/env";
 import { connectRedis, disconnectRedis } from "./infrastructure/cache/redis";
-import { connectMongo, disconnectMongo } from "./infrastructure/database/mongodb";
+import {
+  connectMongo,
+  disconnectMongo,
+} from "./infrastructure/database/mongodb";
 import { logger } from "./lib/logger";
 
 async function bootstrap() {
