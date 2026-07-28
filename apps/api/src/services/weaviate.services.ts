@@ -1,7 +1,6 @@
 import { env } from "@repo/env-config";
 
-const VECTOR_SERVICE_URL =
-  env.VECTOR_SERVICE_URL ?? "http://localhost:8100";
+const VECTOR_SERVICE_URL = env.VECTOR_SERVICE_URL ?? "http://localhost:8100";
 
 export type SearchResult = {
   uuid: string;
