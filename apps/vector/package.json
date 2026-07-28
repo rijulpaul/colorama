@@ -2,6 +2,6 @@
   "name": "vector",
   "version": "0.1.0",
   "scripts": {
-    "dev": "uv sync && fastapi run ./src/app.py"
+    "dev": "uv sync && fastapi dev ./src/app.py"
   }
 }
