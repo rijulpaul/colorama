@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
       - run: bunx prettier --check "**/*.{ts,tsx,md}"
 
   format-apply:
@@ -22,6 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
+      - uses: oven-sh/setup-bun@v2
       - run: bunx prettier --write "**/*.{ts,tsx,md}"
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
