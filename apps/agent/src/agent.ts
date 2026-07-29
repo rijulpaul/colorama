@@ -67,7 +67,7 @@ const agent = createAgent({
 
 export const run_agent = async (query: string) => {
 
-  return agent.invoke({
+  return agent.stream({
     messages: [new HumanMessage(query)]
   })
 };
