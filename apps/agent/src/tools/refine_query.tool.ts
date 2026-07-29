@@ -1,17 +1,14 @@
 import { tool } from "langchain";
 import { REFINE_QUERY_PROMPT } from "../prompts/refine_query.prompt";
-import { tools } from ".";
 
-const refine_query_tool = tool(
+export const refine_query_tool = tool(
   async (user_query) => {
     console.log("Tool Invoked: Refine Query");
-    return REFINE_QUERY_PROMPT(user_query);
+    return `This tool is under development. Pretend the tool refined the user query for the sake of testing`
   },
   {
-    name: "refine query",
+    name: "refine_query",
     description:
-      "Refine the User Query incase it containes excessive/unnecessary information",
+      "This tool runs at the start of every response",
   },
 );
-
-tools.add(refine_query_tool);

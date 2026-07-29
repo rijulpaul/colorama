@@ -1,18 +1,14 @@
 import { tool } from "langchain";
-import { tools } from ".";
 
 // import { env } from "@repo/config";
 
-const retrieve_color_tool = tool(
-  // (query) => fetch(`http://${env.WEAVIATE_HOST}:${env.WEAVIATE_PORT}`),
-  (query) => {
+export const retrieve_color_tool = tool(
+  async () => {
     console.log("Tool Invoked: Retrieve Color");
-    return query;
+    return 'This tool is under development. Pretend the tool returned the colour for the sake of testing'
   },
   {
-    name: "Retrieve Color",
-    description: "Based on the user query search for and output the color",
+    name: "retrieve_color",
+    description: "Returns the closest colour based on user query",
   },
 );
-
-tools.add(retrieve_color_tool);

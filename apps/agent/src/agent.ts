@@ -2,7 +2,6 @@ import { createAgent, HumanMessage } from "langchain";
 
 import { tools } from "./tools";
 import { SYSTEM_PROMPT } from "./prompts/system.prompt";
-import { env } from "@repo/env-config";
 
 import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
@@ -12,8 +11,9 @@ import { ChatGroq } from "@langchain/groq";
 import { ChatOllama } from "@langchain/ollama";
 import { ChatXAI } from "@langchain/xai";
 
-const LLM_PROVIDER = env.LLM_PROVIDER;
-const LLM_MODEL = env.LLM_MODEL as string;
+const LLM_PROVIDER = process.env.LLM_PROVIDER;
+const LLM_MODEL = process.env.LLM_MODEL as string;
+const LLM_BASE_URL = process.env.LLM_BASE_URL;
 const LLM_TEMP = 0.7;
 
 let llm:
@@ -25,50 +25,33 @@ let llm:
   | ChatOllama
   | ChatXAI;
 
+const llm_config = {
+  model: LLM_MODEL,
+  temperature: LLM_TEMP,
+  ... (LLM_BASE_URL ? {baseURL: LLM_BASE_URL} : {}),
+};
+
 switch (LLM_PROVIDER) {
   case "openrouter":
-    llm = new ChatOpenRouter({
-      apiKey: env.OPENROUTER_API_KEY,
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatOpenRouter(llm_config);
     break;
   case "openai":
-    llm = new ChatOpenAI({
-      apiKey: env.OPENAI_API_KEY,
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatOpenAI(llm_config);
     break;
   case "anthropic":
-    llm = new ChatAnthropic({
-      apiKey: env.ANTHROPIC_API_KEY,
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatAnthropic(llm_config);
     break;
   case "google":
-    llm = new ChatGoogle(LLM_MODEL, { temperature: LLM_TEMP });
+    llm = new ChatGoogle(llm_config);
     break;
   case "groq":
-    llm = new ChatGroq({
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatGroq(llm_config);
     break;
   case "ollama":
-    llm = new ChatOllama({
-      baseUrl: env.OLLAMA_BASE_URL,
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatOllama(llm_config);
     break;
   case "xai":
-    llm = new ChatXAI({
-      // apiKey: env.XAI_API_KEY,
-      model: LLM_MODEL,
-      temperature: LLM_TEMP,
-    });
+    llm = new ChatXAI(llm_config);
     break;
   default:
     throw new Error(
@@ -78,13 +61,13 @@ switch (LLM_PROVIDER) {
 
 const agent = createAgent({
   model: llm,
-  tools: tools.get(),
   systemPrompt: SYSTEM_PROMPT,
-});
+  tools: tools
+})
 
 export const run_agent = async (query: string) => {
+
   return agent.invoke({
-    messages: [new HumanMessage(query)],
-  });
-  // return response
+    messages: [new HumanMessage(query)]
+  })
 };

@@ -1,15 +1,5 @@
-import type { Tool } from "langchain";
+// tools/index.ts
+import { refine_query_tool } from "./refine_query.tool";
+import { retrieve_color_tool } from "./retrieve_data.tool";
 
-class Tools {
-  protected tools: Tool[] = [];
-
-  public add(tool: Tool): void {
-    this.tools.push(tool);
-  }
-
-  public get(): Tool[] {
-    return this.tools;
-  }
-}
-
-export const tools = new Tools();
+export const tools = [refine_query_tool, retrieve_color_tool];
