@@ -7,24 +7,33 @@ on:
     branches: [main]
 
 jobs:
-  format-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: oven-sh/setup-bun@v2
-      - run: bunx prettier --check "**/*.{ts,tsx,md}"
-
-  format-apply:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  format:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.head_ref }}
+
       - uses: oven-sh/setup-bun@v2
-      - run: bunx prettier --write "**/*.{ts,tsx,md}"
-      - uses: stefanzweifel/git-auto-commit-action@v5
+
+      - name: Check formatting
+        id: check
+        run: bunx prettier --check "**/*.{ts,tsx,md}"
+        continue-on-error: true
+
+      - name: Apply formatting
+        if: steps.check.outcome == 'failure' && github.event_name == 'push'
+        run: bunx prettier --write "**/*.{ts,tsx,md}"
+
+      - name: Commit formatting
+        if: steps.check.outcome == 'failure' && github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: auto-format"
+
+      - name: Fail PR if formatting is incorrect
+        if: steps.check.outcome == 'failure' && github.event_name == 'pull_request'
+        run: |
+          echo "Formatting issues found. Please run Prettier."
+          exit 1
