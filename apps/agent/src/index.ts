@@ -7,20 +7,21 @@ const SSEResponse = (stream: ReadableStream) => {
     async start(controller) {
       const encoder = new TextEncoder();
       for await (const chunk of stream) {
-        console.log(chunk)
+        console.log(chunk);
         const message = chunk?.model_request?.messages[0];
-        const response = message?.content || ""
-        const reasoning_content = message?.additional_kwargs?.reasoning_content || "";
-        const tool_call = message?.tool_calls.map(tool => tool.name);
-        
+        const response = message?.content || "";
+        const reasoning_content =
+          message?.additional_kwargs?.reasoning_content || "";
+        const tool_call = message?.tool_calls.map((tool) => tool.name);
+
         controller.enqueue(
           encoder.encode(
             `data: ${JSON.stringify({
               response: response,
               reasoning: reasoning_content,
-              tool: tool_call
-            })}\n\n`
-          )
+              tool: tool_call,
+            })}\n\n`,
+          ),
         );
       }
 
@@ -36,7 +37,7 @@ const SSEResponse = (stream: ReadableStream) => {
       Connection: "keep-alive",
     },
   });
-}
+};
 
 const server = Bun.serve({
   idleTimeout: 30,
@@ -49,8 +50,8 @@ const server = Bun.serve({
         return new Response("Missing PROMPT header", { status: 400 });
       }
 
-      const stream = await run_agent(prompt)
-      return SSEResponse(stream)
+      const stream = await run_agent(prompt);
+      return SSEResponse(stream);
     },
     "/health": new Response("ok"),
   },

@@ -28,7 +28,7 @@ let llm:
 const llm_config = {
   model: LLM_MODEL,
   temperature: LLM_TEMP,
-  ... (LLM_BASE_URL ? {baseURL: LLM_BASE_URL} : {}),
+  ...(LLM_BASE_URL ? { baseURL: LLM_BASE_URL } : {}),
 };
 
 switch (LLM_PROVIDER) {
@@ -62,12 +62,11 @@ switch (LLM_PROVIDER) {
 const agent = createAgent({
   model: llm,
   systemPrompt: SYSTEM_PROMPT,
-  tools: tools
-})
+  tools: tools,
+});
 
 export const run_agent = async (query: string) => {
-
   return agent.stream({
-    messages: [new HumanMessage(query)]
-  })
+    messages: [new HumanMessage(query)],
+  });
 };

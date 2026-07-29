@@ -5,7 +5,7 @@ import { tool } from "langchain";
 export const retrieve_color_tool = tool(
   async () => {
     console.log("Tool Invoked: Retrieve Color");
-    return 'This tool is under development. Pretend the tool returned the colour for the sake of testing'
+    return "This tool is under development. Pretend the tool returned the colour for the sake of testing";
   },
   {
     name: "retrieve_color",
