@@ -9,9 +9,7 @@ services:
       WEAVIATE_HOST: weaviate
       WEAVIATE_PORT: 8080
       WEAVIATE_COLLECTION: color_sense
-      EMBEDDING_MODEL: sentence-transformers/all-MiniLM-L6-v2
-      HOST: 0.0.0.0
-      PORT: 8000
+      EMBEDDING_MODEL: all-MiniLM-L6-v2
     depends_on:
       - weaviate
 

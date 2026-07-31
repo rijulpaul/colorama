@@ -87,3 +87,7 @@ venv/
 
 # VS Code
 .vscode/
+
+.venv/
+.turbo/
+__pycache__/
